@@ -16,6 +16,36 @@ public class Lotto {
         int[] generated = generateNumbers();
         System.out.println("Wylosowane liczby:");
         System.out.println(Arrays.toString(generated));
+
+        // Spradzenie wyniku
+        checkScore(picked, generated);
+    }
+
+    static void checkScore(int[] picked, int[] generated) {
+        int score = 0;
+        for (int number : picked) {
+            if (containsValue(generated, number)) {
+                score++;
+            }
+        }
+
+        switch (score) {
+            case 6:
+                System.out.println("Trafiłeś 6!");
+                break;
+            case 5:
+                System.out.println("Trafiłeś 5!");
+                break;
+            case 4:
+                System.out.println("Trafiłeś 4!");
+                break;
+            case 3:
+                System.out.println("Trafiłeś 3!");
+                break;
+            default:
+                System.out.println("Niestety nic nie wygrałeś");
+                break;
+        }
     }
 
     static int[] pickNumbers() {
