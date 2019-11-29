@@ -7,9 +7,35 @@ import java.util.Scanner;
 public class Lotto {
 
     public static void main(String[] args) {
-        int[] tab = generateNumbers();
-        String elements = Arrays.toString(tab);
-        System.out.println(elements);
+        // Wczytywanie liczb
+        int[] picked = pickNumbers();
+        System.out.println("Podane liczby:");
+        System.out.println(Arrays.toString(picked));
+
+        // Losowanie liczb
+        int[] generated = generateNumbers();
+        System.out.println("Wylosowane liczby:");
+        System.out.println(Arrays.toString(generated));
+    }
+
+    static int[] pickNumbers() {
+        int[] result = new int[6];
+        int index = 0;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Podaj 6 liczb z zakresu 1-49:");
+        while (index < 6) {
+            int number = getNumber(scanner);
+            if (number < 1 || number > 49) {
+                System.out.println("Liczba powinna być z zakresu 1-49");
+            } else if (containsValue(result, number)) {
+                System.out.println("Taka liczba już została podana");
+            } else {
+                result[index++] = number;
+            }
+        }
+        Arrays.sort(result);
+        return result;
     }
 
     static int[] generateNumbers() {
@@ -19,10 +45,10 @@ public class Lotto {
         while (index < 6) {
             int number = random.nextInt(49) + 1;
             if (!containsValue(result, number)) {
-                result[index] = number;
-                index++;
+                result[index++] = number;
             }
         }
+        Arrays.sort(result);
         return result;
     }
 
